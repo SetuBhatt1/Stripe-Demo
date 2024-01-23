@@ -1,11 +1,10 @@
-// use external components from react bootstrap library
 import { Button, Navbar } from 'react-bootstrap';
 import { useContext } from 'react';
 import { CartContext } from '../CartContext';
+// ... (other imports)
 
 function NavbarComponent() {
     const cart = useContext(CartContext);
-
     const prodCounts = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
     const handleCheckout = async () => {
@@ -22,6 +21,7 @@ function NavbarComponent() {
 
             if (data.url) {
                 window.location.assign(data.url);
+                //checkPaymentStatus(data.paymentIntentId);
             }
         } catch (error) {
             console.error("Error during checkout:", error);
@@ -29,16 +29,52 @@ function NavbarComponent() {
         }
     };
 
+    async function checkPaymentStatus(paymentIntentId) {
+        try {
+            const response = await fetch(`http://localhost:4000/${paymentIntentId}`);
+            const result = await response.json();
+
+            if (result.success) {
+                console.log('Payment succeeded! Money is in the bank!');
+                handlePaymentSuccess(); // Call your function to handle success
+            } else {
+                console.log('Payment failed or not yet completed.');
+            }
+        } catch (error) {
+            console.error("Error checking payment status:", error);
+            // Handle errors as needed
+        }
+    }
+
+    const handlePaymentSuccess = async () => {
+        try {
+            // Trigger your webhook or perform additional actions on the frontend
+            const webhookResponse = await fetch('http://localhost:4000/webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // You can pass any additional data needed by your backend
+                body: JSON.stringify({ /* your data */ })
+            });
+
+            const webhookData = await webhookResponse.json();
+            console.log('Webhook response:', webhookData);
+
+            // Display a success message or redirect the user
+            // Example: alert('Payment succeeded!');
+
+        } catch (error) {
+            console.error('Error handling payment success:', error);
+            // Handle errors as needed
+        }
+    };
+
     return (
         <>
             <Navbar expand="sm">
-                {/* on click => returns to home page */}
                 <Navbar.Brand href='/'><h1>MyStore</h1></Navbar.Brand>
-
-                {/* some of the stuff will collapse if on mobile screen */}
                 <Navbar.Toggle />
-
-                {/* tells what stuff u want to collapse */}
                 <Navbar.Collapse className='justify-content-end'>
                     <Button onClick={handleCheckout}>Cart {prodCounts} Items</Button>
                 </Navbar.Collapse>
