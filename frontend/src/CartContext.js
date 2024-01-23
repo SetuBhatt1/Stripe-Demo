@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { prodArray, getProductById } from "./productStore";
+import { getProductById } from "./productStore";
 
 // we have functions with no logic
 // means we are going to have a function 'getProductQuantity'
@@ -61,7 +61,7 @@ export function CartProvider({children}) {
     function removeOneFromCart(id) {
         const quantity = getProductQuantity(id);
 
-        if(quantity == 1) {
+        if(quantity === 1) {
             deleteFromCart(id);
         } else {
             setCartProducts(
@@ -82,7 +82,7 @@ export function CartProvider({children}) {
         setCartProducts(
             cartProducts =>
             cartProducts.filter(currentProduct => {
-                return currentProduct.id != id;
+                return currentProduct.id !== id;
             })  
         )
     }
@@ -92,6 +92,7 @@ export function CartProvider({children}) {
         cartProducts.map((cartItem) => {
             const productData = getProductById(cartItem.id);
             totalCost += (productData.price * cartItem.quantity);
+            return totalCost;
         });
         return totalCost;
     }
