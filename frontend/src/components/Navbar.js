@@ -9,7 +9,8 @@ function NavbarComponent() {
 
     const handleCheckout = async () => {
         try {
-            const response = await fetch('http://localhost:4000/checkout', {
+            // replace localhost with your ngrok link
+            const response = await fetch('https://079f-27-121-101-112.ngrok-free.app/checkout', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,6 +32,7 @@ function NavbarComponent() {
 
     async function checkPaymentStatus(paymentIntentId) {
         try {
+            // replace localhost with your ngrok link
             const response = await fetch(`http://localhost:4000/${paymentIntentId}`);
             const result = await response.json();
 
@@ -48,6 +50,7 @@ function NavbarComponent() {
 
     const handlePaymentSuccess = async () => {
         try {
+            // replace localhost with your ngrok link
             // Trigger your webhook or perform additional actions on the frontend
             const webhookResponse = await fetch('http://localhost:4000/webhook', {
                 method: 'POST',
