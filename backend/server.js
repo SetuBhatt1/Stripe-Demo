@@ -25,22 +25,6 @@ app.use(bodyParser.json(
 
 const endpointSecret = process.env.ENDPOINT;
 
-async function checkPaymentStatus(paymentIntentId) {
-    try {
-        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-        console.log('Retrieved payment intent:', paymentIntent);
-
-        if (paymentIntent.status === 'succeeded') {
-            return { success: true };
-        } else {
-            return { success: false };
-        }
-    } catch (error) {
-        console.error(`Error checking payment status: ${error.message}`);
-        return { success: false, error: error.message };
-    }
-}
-
 app.post("/checkout", async (req, res) => {
     const items = req.body.items;
     let lineItems = [];
@@ -71,11 +55,10 @@ app.post("/checkout", async (req, res) => {
     }
 });
 
-
 app.post('/webhook', bodyParser.raw({type: 'application/json'}), (request, response) => {
     const event = request.body;
     console.log(event);
-    
+
     // Handle the event
     switch (event.type) {
       case 'payment_intent.succeeded':
