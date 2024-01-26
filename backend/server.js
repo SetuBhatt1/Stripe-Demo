@@ -1,9 +1,12 @@
 const express = require('express');
+// to enable cross-origin requests
 const cors = require('cors');
+// parse incoming body requests
 const bodyParser = require('body-parser');
+// load environment variables
 require('dotenv').config({ path: '../.env' });
+// import stripe and initialise with secret key
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 
 const app = express();
 app.use(express.static("public"));
@@ -38,62 +41,6 @@ async function checkPaymentStatus(paymentIntentId) {
     }
 }
 
-app.post('/webhooks', async (req, res) => {
-    console.log(req.headers)
-    const sig = req.headers['stripe-signature'];
-    console.log(sig)
-    try {
-        console.log('Received webhook event:', req.body);
-        const raw = Buffer.from(JSON.stringify(req.body), 'base64').toString('utf8');
-        const event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
-        //const event = await stripe.events.retrieve(req.body.id);
-        console.log(event)
-        // Handle the event
-        switch (event.type) {
-            case 'payment_intent.succeeded': {
-                // const email = event.data.object.receipt_email;
-                console.log(`PaymentIntent was successful for!`);
-                // Check payment status using the paymentIntent ID
-                const paymentIntentId = event.data.object.id;
-                const paymentStatus = await checkPaymentStatus(paymentIntentId);
-
-                if (paymentStatus.success) {
-                    console.log('Payment succeeded! Money is in the bank!');
-                } else {
-                    console.log('Payment failed or not yet completed.');
-                }
-                break;
-            }
-
-            case 'checkout.session.completed': {
-                // const email = event.data.object.receipt_email;
-                console.log(`PaymentIntent was successful for!`);
-
-                // Check payment status using the paymentIntent ID
-                const paymentIntentId = event.data.object.id;
-                const paymentStatus = await checkPaymentStatus(paymentIntentId);
-
-                if (paymentStatus.success) {
-                    console.log('Payment succeeded! Money is in the bank!');
-                } else {
-                    console.log('Payment failed or not yet completed.');
-                }
-
-                break;
-            }
-            // Handle other event types as needed
-            default:
-                console.log(`Unhandled event type: ${event.type}`);
-        }
-
-        // Return a 200 response to acknowledge receipt of the event
-        res.json({ received: true });
-    } catch (err) {
-        console.error(`Webhook Error: ${err.message}`);
-        res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-});
-
 app.post("/checkout", async (req, res) => {
     const items = req.body.items;
     let lineItems = [];
@@ -125,8 +72,27 @@ app.post("/checkout", async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3001;
+app.post('/webhook', bodyParser.raw({type: 'application/json'}), (request, response) => {
+    const event = request.body;
+    console.log(event);
+    
+    // Handle the event
+    switch (event.type) {
+      case 'payment_intent.succeeded':
+        const paymentIntent = event.data.object;
+        console.log(paymentIntent);
+        console.log('PaymentIntent was successful!');
+        break;
+      
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+  
+    // Return a 200 response to acknowledge receipt of the event
+    response.json({received: true});
+  });
 
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
