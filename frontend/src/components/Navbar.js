@@ -10,7 +10,7 @@ function NavbarComponent() {
     const handleCheckout = async () => {
         try {
             // replace localhost with your ngrok link
-            const response = await fetch('https://6da6-2402-8100-398f-3687-f4ba-d964-8c31-8099.ngrok-free.app/checkout', {
+            const response = await fetch('https://2827-103-250-136-215.ngrok-free.app/checkout', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

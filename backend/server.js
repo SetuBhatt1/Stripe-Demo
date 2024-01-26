@@ -40,7 +40,7 @@ app.post("/checkout", async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             line_items: lineItems,
             mode: 'payment',
-            success_url: "https://stripe-demo-flame.vercel.app//success",
+            success_url: "https://stripe-demo-flame.vercel.app/success",
             cancel_url: "https://stripe-demo-flame.vercel.app/cancel",
         });
 
