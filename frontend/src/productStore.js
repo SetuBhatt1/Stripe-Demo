@@ -21,17 +21,17 @@
 
 const prodArray = [
     {
-        id:"prod_QSe1K7KrRKiovY",
+        id:"price_1PbileRsNGLqrIpOlmzbYtR7",
         title:"product 1",
         price:10.00
     },
     {
-        id:"prod_QSe2XHVDYkZwXd",
+        id:"price_1Pbik7RsNGLqrIpOyZB3B4cf",
         title:"product 2",
         price:20.00
     },
     {
-        id:"prod_QSe3dZRdYWaWPU",
+        id:"price_1PbijLRsNGLqrIpOtbiW2J4u",
         title:"product 3",
         price:30.00
     }
