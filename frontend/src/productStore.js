@@ -21,7 +21,7 @@
 
 const prodArray = [
     {
-        id:"price_1PbileRsNGLqrIpOlmzbYtR7",
+        id:"price_1PbijLRsNGLqrIpOtbiW2J4u",
         title:"product 1",
         price:10.00
     },
@@ -31,7 +31,7 @@ const prodArray = [
         price:20.00
     },
     {
-        id:"price_1PbijLRsNGLqrIpOtbiW2J4u",
+        id:"price_1PbileRsNGLqrIpOlmzbYtR7",
         title:"product 3",
         price:30.00
     }
