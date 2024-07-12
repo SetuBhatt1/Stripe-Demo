@@ -1,19 +1,37 @@
 // product will be loaded dynamically from here
 
 // making product's array
+// const prodArray = [
+//     {
+//         id:"price_1OZGxdSI7wOHRdQYkdMJYLQF",
+//         title:"product 1",
+//         price:10.00
+//     },
+//     {
+//         id:"price_1OZGxzSI7wOHRdQYtaHHz106",
+//         title:"product 2",
+//         price:20.00
+//     },
+//     {
+//         id:"price_1OZGyMSI7wOHRdQYyMT8hdwx",
+//         title:"product 3",
+//         price:30.00
+//     }
+// ]
+
 const prodArray = [
     {
-        id:"price_1OZGxdSI7wOHRdQYkdMJYLQF",
+        id:"prod_QSe1K7KrRKiovY",
         title:"product 1",
         price:10.00
     },
     {
-        id:"price_1OZGxzSI7wOHRdQYtaHHz106",
+        id:"prod_QSe2XHVDYkZwXd",
         title:"product 2",
         price:20.00
     },
     {
-        id:"price_1OZGyMSI7wOHRdQYyMT8hdwx",
+        id:"prod_QSe3dZRdYWaWPU",
         title:"product 3",
         price:30.00
     }
