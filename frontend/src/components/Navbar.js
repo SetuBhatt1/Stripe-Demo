@@ -10,7 +10,7 @@ function NavbarComponent() {
     const handleCheckout = async () => {
         try {
             // replace localhost with your ngrok link
-            const response = await fetch('https://localhost:4001/checkout', {
+            const response = await fetch('https://stripe-demo-41lt.onrender.com/checkout', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
