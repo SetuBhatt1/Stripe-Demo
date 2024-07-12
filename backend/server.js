@@ -4,7 +4,7 @@ const cors = require('cors');
 // parse incoming body requests
 const bodyParser = require('body-parser');
 // load environment variables
-require('dotenv');
+require('dotenv').config();
 // import stripe and initialise with secret key
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
