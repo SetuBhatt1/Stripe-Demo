@@ -1,6 +1,6 @@
 # Ecommerce Website With Payment Integration
 
-This project is a dynamic e-commerce website developed using React.js, Express.js, and Node.js, with styling provided by MDB React UI Kit. It includes seamless online payment integration using the Stripe API and features such as cart management, and secure checkout functionality with webhook support.
+This project is a dynamic e-commerce website developed using React.js, Express.js, and Node.js, with styling provided by React-Bootstrap. It includes seamless online payment integration using the Stripe API and features such as cart management, and secure checkout functionality with webhook support.
 
 ## Live Demo
 
@@ -15,7 +15,7 @@ This project is a dynamic e-commerce website developed using React.js, Express.j
 
 ## Technologies Used
 
-- **Frontend**: React.js, MDB React UI Kit
+- **Frontend**: React.js, React-Bootstrap
 - **Backend**: Express.js, Node.js
 - **Payment Integration**: Stripe API
 - **Hosting**: Vercel (Frontend), Render (Backend)
